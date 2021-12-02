@@ -10,7 +10,9 @@ password=getpass.getpass('Enter Word: \t\n')
 # Using current time for folder labels and process tracking  
 # import sleep to show output for some time period
 from time import sleep
-
+for i in range(500):
+    print("\n")
+    
 initialStartTime = datetime.now() 
 time.sleep(10)
 
@@ -26,66 +28,23 @@ estCompletedTime = initialStartTime + timedelta(minutes = 6)  #    datetime.time
 print('Expected completion time is:   \t\t\t\t\t\t\t' + str(estCompletedTime))
 print('Folder Label is:  ' + label)
 
-#Choose the download location:
-#downloadPath = r'E:\GIS\DailyData\2020-File-Cleanup\Grants\NG9-1-1_Grant_FY2019-21\Data\AGOLBackup'
-
-#password = input("What should I know?")
-#WorkingLocation = input("\n\tEnter 1 if you are working via VPN. \n\tEnter 2 if you are working in the Annex. \n\tEnter 3 if you are working with the old server.\n\t")
-#time.sleep(5)
-WorkingLocation = "2"
-if WorkingLocation == "1": # VPN
-    print("You entered: " + WorkingLocation)
-    ###    Variables for OUT-OF-Office U:\4-15-21_G-Drive-COPY-COPY\GIS
-    TempsG = r'U:\GIS_2022\DailyData\Temps'  # will need to update to the T drive after migration. **************************************************************************************
-    structuresFolder = r'E:\GIS\DailyData\Road_Struct'
-    newRoadStructureLocation = r'U:\GIS_2022\DailyData\Road_Struct' + os.path.sep
-    backupFolder = r'E:\CompletedTasks\DataBackup\Backups' #+ os.path.sep
-    #backupFolder = r'U:\CompletedTasks\DataBackup\Backups' #+ os.path.sep # Original line changed 10/28/2021
-    outWorkspace =backupFolder + '\Backup-' + label
-    newTempLocation = 'E:/GIS/DailyData/Temps_Local/'
-    TempName = 'Temp'
-    temporaryOutWorkspace = outWorkspace + '\Temps-' + label
-    copyLocation = structuresFolder + os.path.sep + 'TransferFolder'
-    originalRoadStructureLocation = 'E:/GIS/DailyData/Road_Struct/' #Line 350
-    newRoadStructureLocation = 'U:\GIS_2022/DailyData/Road_Struct/'
-    originalRouteLocation = r'E:\GIS\DailyData\Road_Struct\Routing'
-    newRouteLocation = r'U:\GIS_2022\DailyData\Road_Struct\Routing'
-elif WorkingLocation == "2": # Annex
-    print("You entered: " + WorkingLocation)
-    ##    Variables for T drive (GNAS server)
-    TempsG = r'T:\GIS_2022\DailyData\Temps' # will need to update to the T drive after migration. **************************************************************************************
-    structuresFolder = r'E:\GIS\DailyData\Road_Struct'
-    newRoadStructureLocation = r'T:\GIS_2022\DailyData\Road_Struct' + os.path.sep
-    backupFolder = r'T:\CompletedTasks\DataBackup\Backups' #+ os.path.sep
-    outWorkspace =backupFolder + '\Backup-' + label
-    newTempLocation = 'E:/GIS/DailyData/Temps_Local/'
-    TempName = 'Temp'
-    temporaryOutWorkspace = outWorkspace + '\Temps-' + label
-    copyLocation = structuresFolder + os.path.sep + 'TransferFolder'
-    originalRoadStructureLocation = 'E:/GIS/DailyData/Road_Struct/' #Line 350
-    newRoadStructureLocation = 'T:/GIS_2022/DailyData/Road_Struct/'
-    originalRouteLocation = r'E:\GIS\DailyData\Road_Struct\Routing'
-    newRouteLocation = r'T:\GIS_2022\DailyData\Road_Struct\Routing'
-elif WorkingLocation == "3": # Old Server
-    print("You entered: " + WorkingLocation)
-    ##    Variables for G drive (s2 server) 
-    TempsG = r'T\GIS\DailyData\Temps' # will need to update to the T drive after migration. **************************************************************************************
-    structuresFolder = r'E:\GIS\DailyData\Road_Struct'
-    newRoadStructureLocation = r'T:\GIS\DailyData\Road_Struct' + os.path.sep
-    backupFolder = r'T:\CompletedTasks\DataBackup\Backups' #+ os.path.sep
-    outWorkspace =backupFolder + '\Backup-' + label
-    newTempLocation = 'E:/GIS/DailyData/Temps_Local/'
-    TempName = 'Temp'
-    temporaryOutWorkspace = outWorkspace + '\Temps-' + label
-    copyLocation = structuresFolder + os.path.sep + 'TransferFolder'
-    originalRoadStructureLocation = 'E:/GIS/DailyData/Road_Struct/' #Line 350
-    newRoadStructureLocation = 'T:/GIS/DailyData/Road_Struct/'
-    originalRouteLocation = r'E:\GIS\DailyData\Road_Struct\Routing'
-    newRouteLocation = r'T:\GIS\DailyData\Road_Struct\Routing'
-else:
-    exit()
+Notification.crash(DegreeOfError = 5)
 
 
+##    Variables for T drive (GNAS server)
+TempsG = r'T:\GIS_2022\DailyData\Temps' # will need to update to the T drive after migration. **************************************************************************************
+structuresFolder = r'E:\GIS\DailyData\Road_Struct'
+newRoadStructureLocation = r'T:\GIS_2022\DailyData\Road_Struct' + os.path.sep
+backupFolder = r'T:\CompletedTasks\DataBackup\Backups' #+ os.path.sep
+outWorkspace =backupFolder + '\Backup-' + label
+newTempLocation = 'E:/GIS/DailyData/Temps_Local/'
+TempName = 'Temp'
+temporaryOutWorkspace = outWorkspace + '\Temps-' + label
+copyLocation = structuresFolder + os.path.sep + 'TransferFolder'
+originalRoadStructureLocation = 'E:/GIS/DailyData/Road_Struct/' #Line 350
+newRoadStructureLocation = 'T:/GIS_2022/DailyData/Road_Struct/'
+originalRouteLocation = r'E:\GIS\DailyData\Road_Struct\Routing'
+newRouteLocation = r'T:\GIS_2022\DailyData\Road_Struct\Routing'
 
 def TimeCalculation(initialStartTime):    ## This is the time tracking code function.
     # printing initial_date  
@@ -122,6 +81,7 @@ def downloadFromAGOL(backupFolder, initialStartTime, password):    # Downloads t
     #password=getpass.getpass('Enter Word: \t\n')
 
     cred_gis = GIS('https://www.arcgis.com','tluksha', password)
+
     print('Succcessfully logged in as '+ cred_gis.properties.user.username)
     print('Login successful \t\t\t\t\t\t\t\t L__45 \t' + str(time.ctime()))
     # Define the ArcGIS Online Item ID for Core Data------------------------------------------------------------------------
