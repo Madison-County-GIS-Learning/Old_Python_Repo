@@ -152,7 +152,7 @@ def downloadFromAGOL(backupFolder, initialStartTime, password):    # Downloads t
     coreFeature_item_lyrs = coreFeature_item.layers
     #backupFolder = r'E:\GIS\DailyData\2020-File-Cleanup\Grants\NG9-1-1_Grant_FY2019-21\Data\AGOLBackup' # E:\Dropbox (Geodata)\Data\MT_NG911_Madison\AGO_Backup'
     outSummary = backupFolder + os.path.sep + date_time +"_NG911_Backup_Summary" + ".txt"
-    input_file_name = backupFolder + os.path.sep + "CoreData" + date_time + ".zip" # Used in Tommy's script below.
+    input_file_name = backupFolder + os.path.sep + "CoreData_" + date_time + ".zip" # Used in Tommy's script below.Changed this line on 12/7/21 to attemp to allow zip folder to be discovered. 
     output_file_name = input_file_name[:-4]
     outFile = open(outSummary, 'w')
     print('Variables created \t\t\t\t\t\t\t\t L__74 \t' + str(time.ctime()))
