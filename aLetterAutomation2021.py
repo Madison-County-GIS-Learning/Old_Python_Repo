@@ -6,40 +6,27 @@ import datetime
 import pandas as pd
 from arcgis import GIS
 
+## ********** **********    Variables    ********** **********  
 wrkspc = env.wrkspc = r'E:\GIS\DailyData\MXDs\ArcGIS_Pro_Projects\8-25-20-Tommy\8-25-20-Tommy.gdb'
-#wrkspc = env.wrkspc = r'C:\Users\TLuksha\Desktop\MailingAppendLetters\CreateNewStructures\CreateNewStructures.gdb'
-#wrkspc=r"E:\GIS\DailyData\MXDs\ArcGIS_Pro_Projects\8-25-20-Tommy\8-25-20-Tommy.gdb"
-#arcpy.env.wrkspc = wrkspc
-#wrkspc=r"E:\GIS\DailyData\MXDs\ArcGIS_Pro_Projects\8-25-20-Tommy\8-25-20-Tommy.gdb"
-#structures = r"Standard Working Data\Online_MC_Layers\SiteStructureAddressPoints"
-MailingLettersFolder = r"C:\Users\TLuksha\Desktop\MailingAppendLetters"
-#fc = r"Standard Working Data\Online_MC_Layers\SiteStructureAddressPoints"
-#fc = 'Online_MC_Layers\\SiteStructureAddressPoints'
+MailingLettersFolder = r"C:\Users\tluksha.MADCO\Desktop\MailingAppendLetters"
 fc = "Standard Working Data\\Online_MC_Layers\\SiteStructureAddressPoints"
-#fc = "https://services7.arcgis.com/xh3dsZbIkSAmWWRV/arcgis/rest/services/NG911_CoreData/FeatureServer/1"
-#test_fc = r'C:\Users\TLuksha\Desktop\MailingAppendLetters\CreateNewStructures.gdb\FailedStructureMod07272021'
-#fc = test_fc
-## Try this following line when running through the IDE
-#gis = GIS(profile="Tommy_AGOL_prof")
-#parcels = 'Parcels'
 parcels = r"Standard Working Data\Parcels"
-#parcels = r"https://gistestservicemt.gov/arcgis/rest/services/MSDI_Framework/Parcels/MapServer/0"
 YellowstoneClub = "Standard Working Data\\Neighborhoods\\YellowstoneClub"
 Moonlight_Basin = "Standard Working Data\\Neighborhoods\\Moonlight_Basin"
 Spanish_Peaks = "Standard Working Data\\Neighborhoods\\Spanish_Peaks"
-WordMergeDoc = r"C:\Users\TLuksha\Desktop\Mail Merge Letter 2.docx"
+WordMergeDoc = r"C:\Users\tluksha.MADCO\Desktop\Mail Merge Letter 2.docx"
+#Updated the folders to point to tluksha.MADCO instead of tluksha
 
-def SelectSendLetterRecords():
-    sendLetterqry = '"SendLetter" = 1' 
-    arcpy.management.SelectLayerByAttribute(fc, 'NEW_SELECTION', sendLetterqry)
+def SelectSendLetterRecords(query = '"SendLetter" = 1'):
+    #query = '"SendLetter" = 1'
+    arcpy.management.SelectLayerByAttribute(fc, 'NEW_SELECTION', query)
     count = arcpy.management.GetCount(fc)
     print('The number of  SendLetter  records selected is:  ' + str(count) + '\n')    
     # To add in the future: https://support.esri.com/en/technical-article/000023601
 SelectSendLetterRecords()
-
+#SelectSendLetterRecords('"SendLetter" = 2') # This works as an alternate option. 
 
 ## Unit = Unit.strip(()
-
 
 
 arcpy.management.CalculateField(fc, "Post_Comm", "ReclassPostalCode(!Post_Code!)", "PYTHON3", '''def ReclassPostalCode(Post_Comm):
@@ -225,7 +212,7 @@ def UpdateNeighborhoods(fc):
 #for n in range(5):
     #print("Need to fix the GDB located at: E:\GIS\DailyData\2020-File-Cleanup\Neighborhoods_Communities_Regions\Neighborhood_Communities.gdb"
           
-#UpdateNeighborhoods(fc)
+UpdateNeighborhoods(fc)
 
 def UpdateIncorporatedAreas(fc):
     ## Will need to update this section to update incorporated areas.
@@ -470,3 +457,20 @@ arcpy.management.CalculateField(fc, "Label", "UpdateLabel(!Add_Number!,!AddNum_S
         returnValue = " ".join([str(i) for i in [ Add_Number, AddNum_Suf, LSt_PreType, LSt_PreDir, LSt_Name, LSt_Type, LSt_PosDir, "UNIT", Unit] if i]).strip().replace('   ',' ').replace('  ',' ')
     returnValue = returnValue.replace('  ',' ')
     return returnValue""", "TEXT", "NO_ENFORCE_DOMAINS")
+
+
+#Old Links:
+#wrkspc = env.wrkspc = r'C:\Users\TLuksha\Desktop\MailingAppendLetters\CreateNewStructures\CreateNewStructures.gdb'
+#wrkspc=r"E:\GIS\DailyData\MXDs\ArcGIS_Pro_Projects\8-25-20-Tommy\8-25-20-Tommy.gdb"
+#arcpy.env.wrkspc = wrkspc
+#wrkspc=r"E:\GIS\DailyData\MXDs\ArcGIS_Pro_Projects\8-25-20-Tommy\8-25-20-Tommy.gdb"
+#structures = r"Standard Working Data\Online_MC_Layers\SiteStructureAddressPoints"
+#fc = r"Standard Working Data\Online_MC_Layers\SiteStructureAddressPoints"
+#fc = 'Online_MC_Layers\\SiteStructureAddressPoints'
+#fc = "https://services7.arcgis.com/xh3dsZbIkSAmWWRV/arcgis/rest/services/NG911_CoreData/FeatureServer/1"
+#test_fc = r'C:\Users\TLuksha\Desktop\MailingAppendLetters\CreateNewStructures.gdb\FailedStructureMod07272021'
+#fc = test_fc
+## Try this following line when running through the IDE
+#gis = GIS(profile="Tommy_AGOL_prof")
+#parcels = 'Parcels'
+#parcels = r"https://gistestservicemt.gov/arcgis/rest/services/MSDI_Framework/Parcels/MapServer/0"
